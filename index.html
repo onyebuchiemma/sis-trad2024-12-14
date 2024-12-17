@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations Pop-Up</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(img.jpg);
+            font-family: "Arial", sans-serif;
+            overflow: hidden;
+            color: white;
+            background-size: cover; /* Scale the image to cover the entire container */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            height: 100vh;
+        }
+
+        /* Clickable Box */
+        .click-box {
+            width: 80%;
+            max-width: 300px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff7eb9, #ff65a3, #7afcff);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .click-box:hover {
+            transform: scale(1.1);
+        }
+
+        /* Pop-up Container */
+        .popup-container {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Fireworks Animation */
+        .firework {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('img.jpg'); /* Ensure image is in the same folder */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            animation: burst 2s ease-out infinite;
+        }
+
+        @keyframes burst {
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Congratulations Message */
+        .message {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 50vh;
+            transform: translateY(-50%);
+            opacity: 0;
+            animation: fadeIn 2s ease 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-60%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%);
+            }
+        }
+
+        .highlight {
+            color: #ffe066;
+            text-shadow: 0 0 10px #ffea00;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .click-box {
+                font-size: 16px;
+                height: 50px;
+            }
+
+            .message {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
+            .firework {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Clickable Box -->
+    <div class="click-box" id="clickBox">🎉 Click Here for a Surprise 🎉</div>
+
+    <!-- Pop-up Container -->
+    <div class="popup-container" id="popupContainer">
+        <div class="message" id="message">
+            Congratulations <span class="highlight">Big Sis</span> to your New Home!<br>
+            Wishing you all the best. We all will miss you honestly.<br>
+            May this new chapter in your life be filled with love, joy,
+            <br> and countless blessings. <br> 
+            I’m so happy for you and [Brother-in-law' bro Ejike] <br>
+            as you begin this wonderful journey together. <br>
+            May your bond grow stronger with each passing day, <Br>
+             and may your lives be filled with happiness and prosperity.
+           <br>God bless your new home. <br><span class="highlight">'Amen'</span> 🎊
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="Flavour-Ada-Ada-(TrendyBeatz.com).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const popupContainer = document.getElementById("popupContainer");
+        const bgMusic = document.getElementById("bgMusic");
+        const clickBox = document.getElementById("clickBox");
+
+        // Function to create fireworks
+        function createFirework() {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            firework.style.left = Math.random() * 100 + "vw";
+            firework.style.top = Math.random() * 100 + "vh";
+            firework.style.animationDuration = Math.random() * 1.5 + 1 + "s";
+            popupContainer.appendChild(firework);
+
+            setTimeout(() => firework.remove(), 2000);
+        }
+
+        // Trigger the animation and music
+        clickBox.addEventListener("click", () => {
+            popupContainer.style.display = "block";
+            bgMusic.play().catch((e) => console.log("Autoplay blocked, click to start music.", e));
+
+            // Fireworks loop
+            for (let i = 0; i < 200; i++) {
+                setTimeout(createFirework, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
+
